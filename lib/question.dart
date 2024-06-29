@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:questionbox/question.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class QuestionBox extends StatelessWidget {
+  const QuestionBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,21 +11,21 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyQuestionPage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class MyQuestionPage extends StatefulWidget {
+  const MyQuestionPage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyQuestionPage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyQuestionPage> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -61,13 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const MyQuestionPage(title: 'Flutter Demo Home Page')));
-        },
+        onPressed: () {},
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),

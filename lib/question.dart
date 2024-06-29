@@ -6,12 +6,11 @@ class QuestionBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyQuestionPage(title: 'Flutter Demo Home Page'),
+      home: const MyQuestionPage(title: '質問入力'),
     );
   }
 }
@@ -26,14 +25,6 @@ class MyQuestionPage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyQuestionPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,20 +36,41 @@ class _MyHomePageState extends State<MyQuestionPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Container(
+              height: 100, //高さを設定
+              padding: const EdgeInsets.all(10.0), //余白の設定
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: "テーマ入力してください",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0), // 枠線の角の丸みを設定
+                  ),
+                ),
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+            Container(
+              height: 200, //高さを設定
+              width: 400, // ここで幅を設定
+              padding: const EdgeInsets.all(10.0), //余白の設定
+              child: TextField(
+                maxLines: 10, //10行かけるよ
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(30),
+                  labelText: "質問を入力してください",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0), // 枠線の角の丸みを設定
+                  ),
+                ),
+              ),
             ),
+            IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () {
+                  // ボタンが押された際の動作を記述する
+                },
+                style: IconButton.styleFrom())
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "888867091759",
+    "project_id": "questionbox-b186d",
+    "storage_bucket": "questionbox-b186d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:888867091759:android:6eef3df177c373b3de5dda",
+        "android_client_info": {
+          "package_name": "QuestionBox.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBN6I-uiLSF4C_dALZfBq37RdOhSnBXPcI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -42,12 +42,11 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
               ),
             ),
             Container(
-              //margin: const EdgeInsets.only(top: 5),
               padding: const EdgeInsets.only(left: 30),
               width: 200,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.black),
-                color: Color.fromARGB(255, 255, 255, 255),
+                color: const Color.fromARGB(255, 255, 255, 255),
               ),
               child: DropdownButton(
                 underline: Container(),
@@ -116,8 +115,11 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
               child: IconButton(
                 icon: const Icon(Icons.send, color: Colors.blue),
                 onPressed: () {
-                  Navigator.pop(
-                      context, {'buttonText': _text1, 'questionText': _text2});
+                  Navigator.pop(context, {
+                    'buttonText': _text1,
+                    'questionText': _text2,
+                    'category': isSelectedItem ?? '',
+                  });
                 },
                 style: IconButton.styleFrom(),
               ),

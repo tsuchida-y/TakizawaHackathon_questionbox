@@ -44,7 +44,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   late int state;
   late int state2;
-  List<Widget> buttons = [];
+  final List<ButtonInfo> _buttonInfos = [];
+  String? _selectedCategory;
 
   @override
   void initState() {
@@ -56,49 +57,66 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addButtons(int counter) {
     for (int i = 0; i < counter; i++) {
-      _addButton("Button ${buttons.length + 1}", "Question text");
+      _addButton(
+          "Button ${_buttonInfos.length + 1}", "Question text", "カテゴリなし");
     }
   }
 
-  void _addButton(String buttonText, String questionText) {
+  void _addButton(String buttonText, String questionText, String category) {
     setState(() {
-      buttons.add(
-        Column(
-          children: [
-            const SizedBox(height: 10), // 上部の空白
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => NewScreen(
-                        buttonText: buttonText, questionText: questionText),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                side: const BorderSide(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                  width: 1,
-                ),
-                minimumSize: const Size(400, 50),
-              ),
-              child: Text(buttonText),
-            ),
-            const SizedBox(height: 10), // 下部の空白
-          ],
-        ),
-      );
+      _buttonInfos.add(ButtonInfo(buttonText, questionText, category));
     });
   }
 
   void _incrementCounter(Map<String, String> result) {
     setState(() {
       state += 1;
-      _addButton(result['buttonText']!, result['questionText']!);
+      _addButton(
+          result['buttonText']!, result['questionText']!, result['category']!);
     });
+  }
+
+  List<Widget> _filteredButtons() {
+    List<ButtonInfo> filteredButtons;
+    if (_selectedCategory == null || _selectedCategory!.isEmpty) {
+      filteredButtons = _buttonInfos;
+    } else {
+      filteredButtons = _buttonInfos.where((buttonInfo) {
+        return buttonInfo.category == _selectedCategory;
+      }).toList();
+    }
+
+    return filteredButtons.map((buttonInfo) {
+      return Column(
+        children: [
+          const SizedBox(height: 10), // 上部の空白
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => NewScreen(
+                      buttonText: buttonInfo.buttonText,
+                      questionText: buttonInfo.questionText,
+                      category: buttonInfo.category),
+                ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              side: const BorderSide(
+                color: Color.fromARGB(255, 0, 0, 0),
+                width: 1,
+              ),
+              minimumSize: const Size(400, 50),
+            ),
+            child: Text(buttonInfo.buttonText),
+          ),
+          const SizedBox(height: 10), // 下部の空白
+        ],
+      );
+    }).toList();
   }
 
   @override
@@ -108,12 +126,63 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: SingleChildScrollView(
+      body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ...buttons,
-            const SizedBox(height: 20),
+          children: [
+            // カテゴリフィルタ用のDropdownButtonを追加
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: DropdownButton<String>(
+                value: _selectedCategory,
+                hint: const Text('カテゴリを選択'),
+                items: const [
+                  DropdownMenuItem(
+                    value: '勉強',
+                    child: Text('勉強'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'キャリア',
+                    child: Text('キャリア'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'SNS・メディア',
+                    child: Text('SNS・メディア'),
+                  ),
+                  DropdownMenuItem(
+                    value: '趣味',
+                    child: Text('趣味'),
+                  ),
+                  DropdownMenuItem(
+                    value: '設備',
+                    child: Text('設備'),
+                  ),
+                  DropdownMenuItem(
+                    value: '友達',
+                    child: Text('友達'),
+                  ),
+                  DropdownMenuItem(
+                    value: '家庭・生活',
+                    child: Text('家庭・生活'),
+                  ),
+                ],
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedCategory = value;
+                  });
+                },
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ..._filteredButtons(), // フィルタリングされたボタンリストを表示
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -134,4 +203,12 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+}
+
+class ButtonInfo {
+  final String buttonText;
+  final String questionText;
+  final String category;
+
+  ButtonInfo(this.buttonText, this.questionText, this.category);
 }

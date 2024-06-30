@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 class NewScreen extends StatefulWidget {
   final String buttonText;
   final String questionText;
+  final String category;
 
   const NewScreen(
-      {super.key, required this.buttonText, required this.questionText});
+      {super.key,
+      required this.buttonText,
+      required this.questionText,
+      required this.category});
 
   @override
   State<NewScreen> createState() => _NewScreenState();
@@ -36,6 +40,8 @@ class _NewScreenState extends State<NewScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 10),
+
+                  //タイトル！！！
                   Container(
                     alignment: Alignment.center,
                     width: 400,
@@ -52,8 +58,28 @@ class _NewScreenState extends State<NewScreen> {
                           fontWeight: FontWeight.bold,
                         )),
                   ),
+
+                  //カテゴリ！！！
                   Container(
                     width: 300,
+                    margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 0, 0, 0), width: 1),
+                    ),
+                    child: Text("Category: ${widget.category}",
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        )),
+                  ),
+
+                  //質問内容
+                  Container(
+                    width: 300,
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 212, 235, 255),
@@ -62,14 +88,16 @@ class _NewScreenState extends State<NewScreen> {
                           color: const Color.fromARGB(255, 0, 0, 0), width: 1),
                     ),
                     child: Text(widget.questionText,
-                        textAlign: TextAlign.center,
+                        textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.bold,
                         )),
                   ),
+
                   ..._responses
                       .map((response) => Container(
+                            width: 300,
                             margin: const EdgeInsets.symmetric(vertical: 5),
                             padding: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
@@ -86,9 +114,13 @@ class _NewScreenState extends State<NewScreen> {
               ),
             ),
           ),
+
+          //入力部分！！！
           Container(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               controller: _controller,
               onChanged: (String value) {
                 setState(() {

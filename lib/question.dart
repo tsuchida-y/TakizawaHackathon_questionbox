@@ -11,6 +11,7 @@ class MyQuestionPage extends StatefulWidget {
 class _MyQuestionPageState extends State<MyQuestionPage> {
   String _text1 = '';
   String _text2 = '';
+  String? isSelectedItem;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,56 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
+              ),
+            ),
+            Container(
+              //margin: const EdgeInsets.only(top: 5),
+              padding: const EdgeInsets.only(left: 30),
+              width: 200,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              child: DropdownButton(
+                underline: Container(),
+                hint: const Text('カテゴリを選択'),
+                items: const [
+                  DropdownMenuItem(
+                    value: '勉強',
+                    child: Text('勉強'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'キャリア',
+                    child: Text('キャリア'),
+                  ),
+                  DropdownMenuItem(
+                    value: 'SNS・メディア',
+                    child: Text('SNS・メディア'),
+                  ),
+                  DropdownMenuItem(
+                    value: '趣味',
+                    child: Text('趣味'),
+                  ),
+                  DropdownMenuItem(
+                    value: '設備',
+                    child: Text('設備'),
+                  ),
+                  DropdownMenuItem(
+                    value: '友達',
+                    child: Text('友達'),
+                  ),
+                  DropdownMenuItem(
+                    value: '家庭・生活',
+                    child: Text('家庭・生活'),
+                  ),
+                ],
+                onChanged: (String? value) {
+                  setState(() {
+                    //画面更新
+                    isSelectedItem = value;
+                  });
+                },
+                value: isSelectedItem,
               ),
             ),
             Container(

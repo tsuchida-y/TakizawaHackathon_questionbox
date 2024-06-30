@@ -167,7 +167,7 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
                   });
                 },
                 decoration: InputDecoration(
-                  labelText: "テーマ入力してください",
+                  labelText: "テーマを入力してください！",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
@@ -187,21 +187,24 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
                 maxLines: 10,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.all(30),
-                  labelText: "質問を入力してください",
+                  labelText: "質問を入力してください！",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.send, color: Colors.blue),
-              onPressed: () {
-                Navigator.pop(
-                    context, {'buttonText': _text1, 'questionText': _text2});
-              },
-              style: IconButton.styleFrom(),
-            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                icon: const Icon(Icons.send, color: Colors.blue),
+                onPressed: () {
+                  Navigator.pop(
+                      context, {'buttonText': _text1, 'questionText': _text2});
+                },
+                style: IconButton.styleFrom(),
+              ),
+            )
           ],
         ),
       ),
@@ -235,7 +238,8 @@ class _NewScreenState extends State<NewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.buttonText),
+        title: const Text("回答画面"),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Column(
         children: [
@@ -243,18 +247,20 @@ class _NewScreenState extends State<NewScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  const SizedBox(height: 10),
                   Container(
+                    alignment: Alignment.center,
                     width: 400,
-                    height: 60,
+                    height: 50,
                     decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 212, 235, 255),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                           color: const Color.fromARGB(255, 0, 0, 0), width: 2),
                     ),
                     child: Text(widget.buttonText,
-                        textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 35,
+                          fontSize: 26,
                           fontWeight: FontWeight.bold,
                         )),
                   ),
@@ -262,6 +268,7 @@ class _NewScreenState extends State<NewScreen> {
                     width: 300,
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 212, 235, 255),
                       borderRadius: BorderRadius.circular(10),
                       border: Border.all(
                           color: const Color.fromARGB(255, 0, 0, 0), width: 1),
@@ -269,7 +276,7 @@ class _NewScreenState extends State<NewScreen> {
                     child: Text(widget.questionText,
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 17,
                           fontWeight: FontWeight.bold,
                         )),
                   ),

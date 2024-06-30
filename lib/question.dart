@@ -46,7 +46,10 @@ class _MyQuestionPageState extends State<MyQuestionPage> {
                 padding: const EdgeInsets.only(left: 30),
                 width: 200,
                 decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
+                  border: Border.all(
+                    color: Colors.black,
+                  ),
+                  borderRadius: BorderRadius.circular(10.0),
                   color: const Color.fromARGB(255, 255, 255, 255),
                 ),
                 child: DropdownButton(

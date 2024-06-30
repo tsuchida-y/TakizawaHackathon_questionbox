@@ -55,7 +55,7 @@ class _NewScreenState extends State<NewScreen> {
                     ),
                     child: Text(widget.buttonText,
                         style: const TextStyle(
-                          fontSize: 26,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                         )),
                   ),
@@ -135,7 +135,7 @@ class _NewScreenState extends State<NewScreen> {
                                   });
                                 },
                               ),
-                              Text('Likes: ${response['likes'] ?? 0}'),
+                              Text('いいね: ${response['likes'] ?? 0}'),
                               IconButton(
                                 icon: Icon(Icons.thumb_down,
                                     color: response['disliked'] == true
@@ -157,7 +157,7 @@ class _NewScreenState extends State<NewScreen> {
                                   });
                                 },
                               ),
-                              Text('Dislikes: ${response['dislikes'] ?? 0}'),
+                              Text('ダメ: ${response['dislikes'] ?? 0}'),
                             ],
                           ),
                         ],

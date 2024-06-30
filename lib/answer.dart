@@ -5,11 +5,12 @@ class NewScreen extends StatefulWidget {
   final String questionText;
   final String category;
 
-  const NewScreen(
-      {super.key,
-      required this.buttonText,
-      required this.questionText,
-      required this.category});
+  const NewScreen({
+    super.key,
+    required this.buttonText,
+    required this.questionText,
+    required this.category,
+  });
 
   @override
   State<NewScreen> createState() => _NewScreenState();
@@ -17,7 +18,7 @@ class NewScreen extends StatefulWidget {
 
 class _NewScreenState extends State<NewScreen> {
   String _text3 = '';
-  final List<String> _responses = [];
+  final List<Map<String, dynamic>> _responses = [];
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -41,7 +42,7 @@ class _NewScreenState extends State<NewScreen> {
                 children: [
                   const SizedBox(height: 10),
 
-                  //タイトル！！！
+                  // タイトル
                   Container(
                     alignment: Alignment.center,
                     width: 400,
@@ -59,7 +60,7 @@ class _NewScreenState extends State<NewScreen> {
                         )),
                   ),
 
-                  //カテゴリ！！！
+                  // カテゴリ
                   Container(
                     width: 300,
                     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
@@ -76,7 +77,7 @@ class _NewScreenState extends State<NewScreen> {
                         )),
                   ),
 
-                  //質問内容
+                  // 質問内容
                   Container(
                     width: 300,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -95,27 +96,80 @@ class _NewScreenState extends State<NewScreen> {
                         )),
                   ),
 
-                  ..._responses
-                      .map((response) => Container(
-                            width: 300,
-                            margin: const EdgeInsets.symmetric(vertical: 5),
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.black,
-                                width: 1,
+                  ..._responses.map((response) {
+                    return Container(
+                      width: 300,
+                      margin: const EdgeInsets.symmetric(vertical: 5),
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(response['text']),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                icon: Icon(Icons.thumb_up,
+                                    color: response['liked'] == true
+                                        ? Colors.green
+                                        : Colors.grey),
+                                onPressed: () {
+                                  setState(() {
+                                    if (response['liked'] == null ||
+                                        response['liked'] == false) {
+                                      response['likes'] =
+                                          (response['likes'] ?? 0) + 1;
+                                      response['liked'] = true;
+                                      if (response['disliked'] == true) {
+                                        response['dislikes'] =
+                                            (response['dislikes'] ?? 1) - 1;
+                                        response['disliked'] = false;
+                                      }
+                                    }
+                                  });
+                                },
                               ),
-                            ),
-                            child: Text(response),
-                          ))
-                      .toList(),
+                              Text('Likes: ${response['likes'] ?? 0}'),
+                              IconButton(
+                                icon: Icon(Icons.thumb_down,
+                                    color: response['disliked'] == true
+                                        ? Colors.red
+                                        : Colors.grey),
+                                onPressed: () {
+                                  setState(() {
+                                    if (response['disliked'] == null ||
+                                        response['disliked'] == false) {
+                                      response['dislikes'] =
+                                          (response['dislikes'] ?? 0) + 1;
+                                      response['disliked'] = true;
+                                      if (response['liked'] == true) {
+                                        response['likes'] =
+                                            (response['likes'] ?? 1) - 1;
+                                        response['liked'] = false;
+                                      }
+                                    }
+                                  });
+                                },
+                              ),
+                              Text('Dislikes: ${response['dislikes'] ?? 0}'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    );
+                  }).toList(),
                 ],
               ),
             ),
           ),
 
-          //入力部分！！！
+          // 入力部分
           Container(
             padding: const EdgeInsets.all(10.0),
             child: TextField(
@@ -128,16 +182,26 @@ class _NewScreenState extends State<NewScreen> {
                 });
               },
               decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.send, color: Colors.blue),
-                  onPressed: () {
-                    setState(() {
-                      _responses.add(_text3);
-                      _controller.clear();
-                      _text3 = '';
-                    });
-                  },
-                  style: IconButton.styleFrom(),
+                suffixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.send, color: Colors.blue),
+                      onPressed: () {
+                        setState(() {
+                          _responses.add({
+                            'text': _text3,
+                            'likes': 0,
+                            'dislikes': 0,
+                            'liked': false,
+                            'disliked': false,
+                          });
+                          _controller.clear();
+                          _text3 = '';
+                        });
+                      },
+                    ),
+                  ],
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),

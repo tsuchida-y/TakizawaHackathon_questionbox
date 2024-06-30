@@ -78,7 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _filteredButtons() {
     List<ButtonInfo> filteredButtons;
-    if (_selectedCategory == null || _selectedCategory!.isEmpty) {
+    if (_selectedCategory == null ||
+        _selectedCategory!.isEmpty ||
+        _selectedCategory == 'すべて') {
       filteredButtons = _buttonInfos;
     } else {
       filteredButtons = _buttonInfos.where((buttonInfo) {
@@ -89,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return filteredButtons.map((buttonInfo) {
       return Column(
         children: [
-          const SizedBox(height: 10), // 上部の空白
+          const SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
@@ -113,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             child: Text(buttonInfo.buttonText),
           ),
-          const SizedBox(height: 10), // 下部の空白
+          const SizedBox(height: 10),
         ],
       );
     }).toList();
@@ -129,13 +131,16 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
-            // カテゴリフィルタ用のDropdownButtonを追加
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: DropdownButton<String>(
                 value: _selectedCategory,
                 hint: const Text('カテゴリを選択'),
                 items: const [
+                  DropdownMenuItem(
+                    value: 'すべて',
+                    child: Text('すべて'),
+                  ),
                   DropdownMenuItem(
                     value: '勉強',
                     child: Text('勉強'),
@@ -177,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    ..._filteredButtons(), // フィルタリングされたボタンリストを表示
+                    ..._filteredButtons(),
                     const SizedBox(height: 20),
                   ],
                 ),

@@ -1,16 +1,30 @@
-# questionbox
+# TakizawaHackathon_questionbox
 
-A new Flutter project.
+## 背景・目的
+- 私生活や学校のことでわからないことを聞くときに、先輩や先生に聞くのは少しハードルが高いからもっと気軽に質問できる場が欲しい
+- 自分が知りたいことを一人一人に聞いて回るのは効率が悪い。
+- 自分の体験で、テニス部に入ろうとしたときに、SNSをやっていなかったので、先輩に一人一人聞いていたのが効率が悪いと思った。
+- また、新入生だと質問するのもハードルが高いので、匿名性にした
 
-## Getting Started
+## 機能
+- 質問の入力と投稿
+- 質問に対する回答の投稿
+- 投稿に対するgoodボタン、badボタンの機能
+- カテゴリ別に質問をフィルタリング
 
-This project is a starting point for a Flutter application.
+## 工夫した点
+- 気軽にというイメージで青をイメージカラーに設定した。
+- 匿名での投稿になるため、質問などを適当にしてしまう人が出てしまう可能性があるため、goodとbadボタンを設定し、そこで質問に対する評価をしてもらう
 
-A few resources to get you started if this is your first Flutter project:
+## ファイル構成
+- main.dart: アプリケーションのエントリーポイント。ホーム画面のUIとロジックを含みます。
+- answer.dart: 質問に対する回答を表示および投稿する画面のUIとロジックを含みます。
+- question.dart: 新しい質問を入力する画面のUIとロジックを含みます。
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 使用方法
+1. アプリを起動するとホーム画面が表示されます。
+2. 画面下部の「+」ボタンを押して新しい質問を入力します。
+3. 質問を入力し、カテゴリを選択して「投稿」ボタンを押します。
+4. ホーム画面に戻り、投稿された質問が表示されます。
+5. 質問を選択すると、回答画面が表示されます。ここで回答を入力して投稿できます。
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
